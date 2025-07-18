@@ -1,0 +1,70 @@
+{
+  "name": "Alert",
+  "category": "core",
+  "description": "An alert component for displaying important messages and notifications",
+  "keywords": ["alert", "notification", "message", "toast", "banner", "warning"],
+  "frameworks": ["react", "vue", "svelte"],
+  "styling": ["tailwind", "css", "styled-components"],
+  "variants": [
+    {
+      "name": "info",
+      "description": "Informational alert with blue color scheme",
+      "features": ["icon", "dismissible", "responsive"],
+      "complexity": "simple"
+    },
+    {
+      "name": "success",
+      "description": "Success alert with green color scheme",
+      "features": ["icon", "dismissible", "responsive"],
+      "complexity": "simple"
+    },
+    {
+      "name": "warning",
+      "description": "Warning alert with yellow color scheme",
+      "features": ["icon", "dismissible", "responsive"],
+      "complexity": "simple"
+    },
+    {
+      "name": "error",
+      "description": "Error alert with red color scheme",
+      "features": ["icon", "dismissible", "responsive"],
+      "complexity": "simple"
+    }
+  ],
+  "props": {
+    "variant": {
+      "type": "'info' | 'success' | 'warning' | 'error'",
+      "default": "info",
+      "description": "Alert variant"
+    },
+    "title": {
+      "type": "string",
+      "description": "Alert title"
+    },
+    "children": {
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "Alert content"
+    },
+    "dismissible": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the alert can be dismissed"
+    },
+    "onDismiss": {
+      "type": "() => void",
+      "description": "Function called when alert is dismissed"
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show variant icon"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "dependencies": ["react", "@types/react"],
+  "imports": ["useState"]
+}

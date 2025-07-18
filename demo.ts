@@ -11,14 +11,14 @@ async function demo() {
   // Test cases
   const testCases = [
     'create a blue button',
-    'create a red button with loading state',
-    'create a large green button',
-    'create a Vue button',
-    'create a Svelte button',
-    'create an input field',
     'create a Vue input with error state',
-    'create a Svelte input with label',
-    'create a pricing table with 3 tiers'
+    'create a card component',
+    'create an elevated card',
+    'create a modal dialog',
+    'create a success alert',
+    'create an error alert with dismiss',
+    'create a warning notification',
+    'create a Svelte card'
   ];
   
   for (const testCase of testCases) {

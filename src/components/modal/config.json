@@ -1,0 +1,75 @@
+{
+  "name": "Modal",
+  "category": "core",
+  "description": "A modal dialog component with overlay and focus management",
+  "keywords": ["modal", "dialog", "popup", "overlay", "lightbox"],
+  "frameworks": ["react", "vue", "svelte"],
+  "styling": ["tailwind", "css", "styled-components"],
+  "variants": [
+    {
+      "name": "center",
+      "description": "Modal centered on screen with backdrop",
+      "features": ["overlay", "focus-trap", "esc-key", "responsive"],
+      "complexity": "medium"
+    },
+    {
+      "name": "fullscreen",
+      "description": "Full screen modal on mobile, centered on desktop",
+      "features": ["overlay", "focus-trap", "responsive", "mobile-full"],
+      "complexity": "medium"
+    },
+    {
+      "name": "bottom-sheet",
+      "description": "Bottom sheet modal that slides up from bottom",
+      "features": ["overlay", "slide-up", "responsive"],
+      "complexity": "medium"
+    }
+  ],
+  "props": {
+    "isOpen": {
+      "type": "boolean",
+      "required": true,
+      "description": "Whether the modal is open"
+    },
+    "onClose": {
+      "type": "() => void",
+      "required": true,
+      "description": "Function to close the modal"
+    },
+    "variant": {
+      "type": "'center' | 'fullscreen' | 'bottom-sheet'",
+      "default": "center",
+      "description": "Modal variant"
+    },
+    "size": {
+      "type": "'sm' | 'md' | 'lg' | 'xl'",
+      "default": "md",
+      "description": "Modal size"
+    },
+    "title": {
+      "type": "string",
+      "description": "Modal title"
+    },
+    "children": {
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "Modal content"
+    },
+    "showCloseButton": {
+      "type": "boolean",
+      "default": true,
+      "description": "Show close button"
+    },
+    "closeOnOverlayClick": {
+      "type": "boolean",
+      "default": true,
+      "description": "Close modal when clicking overlay"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "dependencies": ["react", "@types/react"],
+  "imports": ["useEffect", "useRef"]
+}

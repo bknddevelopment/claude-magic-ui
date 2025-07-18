@@ -20,6 +20,21 @@ export class CodeGenerator {
       return this.generateInputCode(variantDef, framework, styling, constraints);
     }
     
+    // Card component
+    if (componentDef.name === 'Card') {
+      return this.generateCardCode(variantDef, framework, styling, constraints);
+    }
+    
+    // Modal component
+    if (componentDef.name === 'Modal') {
+      return this.generateModalCode(variantDef, framework, styling, constraints);
+    }
+    
+    // Alert component
+    if (componentDef.name === 'Alert') {
+      return this.generateAlertCode(variantDef, framework, styling, constraints);
+    }
+    
     throw new Error(`Code generation not implemented for ${componentDef.name} in ${framework}`);
   }
 
@@ -73,6 +88,45 @@ export class CodeGenerator {
     }
     
     return inputCode;
+  }
+
+  private generateCardCode(variantDef: VariantDefinition, framework: Framework, styling: StylingSystem, constraints: string[]): string {
+    let cardCode = this.getBaseCardCode(framework);
+    
+    // Apply constraints if any
+    const colorConstraint = constraints.find(c => c.startsWith('color:'));
+    if (colorConstraint) {
+      const color = colorConstraint.split(':')[1];
+      cardCode = this.applyCardColorConstraint(cardCode, color);
+    }
+    
+    return cardCode;
+  }
+
+  private generateModalCode(variantDef: VariantDefinition, framework: Framework, styling: StylingSystem, constraints: string[]): string {
+    let modalCode = this.getBaseModalCode(framework);
+    
+    // Apply constraints if any
+    const sizeConstraint = constraints.find(c => c.startsWith('size:'));
+    if (sizeConstraint) {
+      const size = sizeConstraint.split(':')[1];
+      modalCode = this.applyModalSizeConstraint(modalCode, size);
+    }
+    
+    return modalCode;
+  }
+
+  private generateAlertCode(variantDef: VariantDefinition, framework: Framework, styling: StylingSystem, constraints: string[]): string {
+    let alertCode = this.getBaseAlertCode(framework);
+    
+    // Apply constraints if any
+    const variantConstraint = constraints.find(c => c.startsWith('type:'));
+    if (variantConstraint) {
+      const type = variantConstraint.split(':')[1];
+      alertCode = this.applyAlertVariantConstraint(alertCode, type);
+    }
+    
+    return alertCode;
   }
 
   private getBaseButtonCode(framework: Framework): string {
@@ -723,5 +777,294 @@ const handleInput = (event: Event) => {
   font-size: 16px;
 }
     `;
+  }
+
+  private getBaseCardCode(framework: Framework): string {
+    switch (framework) {
+      case 'react':
+        return this.getReactCardCode();
+      case 'vue':
+        return this.getVueCardCode();
+      case 'svelte':
+        return this.getSvelteCardCode();
+      default:
+        return this.getReactCardCode();
+    }
+  }
+
+  private getBaseModalCode(framework: Framework): string {
+    switch (framework) {
+      case 'react':
+        return this.getReactModalCode();
+      case 'vue':
+        return this.getVueModalCode();
+      case 'svelte':
+        return this.getSvelteModalCode();
+      default:
+        return this.getReactModalCode();
+    }
+  }
+
+  private getBaseAlertCode(framework: Framework): string {
+    switch (framework) {
+      case 'react':
+        return this.getReactAlertCode();
+      case 'vue':
+        return this.getVueAlertCode();
+      case 'svelte':
+        return this.getSvelteAlertCode();
+      default:
+        return this.getReactAlertCode();
+    }
+  }
+
+  private getReactCardCode(): string {
+    return `import React, { forwardRef } from 'react';
+import { cn } from '@/utils/cn';
+
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: 'default' | 'elevated' | 'outlined';
+  padding?: 'none' | 'sm' | 'md' | 'lg';
+  header?: React.ReactNode;
+  footer?: React.ReactNode;
+  children: React.ReactNode;
+}
+
+const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ className, variant = 'default', padding = 'md', header, footer, children, ...props }, ref) => {
+    const baseStyles = 'bg-white rounded-lg transition-all duration-200';
+    
+    const variants = {
+      default: 'border border-gray-200 shadow-sm hover:shadow-md',
+      elevated: 'shadow-lg hover:shadow-xl border-0',
+      outlined: 'border-2 border-gray-300 shadow-none hover:border-gray-400'
+    };
+
+    const paddings = {
+      none: '',
+      sm: 'p-4',
+      md: 'p-6',
+      lg: 'p-8'
+    };
+
+    const cardClasses = cn(
+      baseStyles,
+      variants[variant],
+      className
+    );
+
+    const contentClasses = cn(paddings[padding]);
+
+    return (
+      <div className={cardClasses} ref={ref} {...props}>
+        {header && (
+          <div className={cn('border-b border-gray-200 pb-4 mb-4', paddings[padding])}>
+            {header}
+          </div>
+        )}
+        
+        <div className={contentClasses}>
+          {children}
+        </div>
+        
+        {footer && (
+          <div className={cn('border-t border-gray-200 pt-4 mt-4', paddings[padding])}>
+            {footer}
+          </div>
+        )}
+      </div>
+    );
+  }
+);
+
+Card.displayName = 'Card';
+
+export default Card;`;
+  }
+
+  private getReactModalCode(): string {
+    return `import React, { useEffect, useRef } from 'react';
+import { cn } from '@/utils/cn';
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  variant?: 'center' | 'fullscreen' | 'bottom-sheet';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  title?: string;
+  children: React.ReactNode;
+  showCloseButton?: boolean;
+  closeOnOverlayClick?: boolean;
+  className?: string;
+}
+
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  variant = 'center',
+  size = 'md',
+  title,
+  children,
+  showCloseButton = true,
+  closeOnOverlayClick = true,
+  className
+}) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50">
+      <div className="fixed inset-0 bg-black bg-opacity-50 transition-opacity" />
+      <div className="fixed inset-0 flex items-center justify-center p-4">
+        <div className={cn('bg-white rounded-lg shadow-xl transform transition-all max-w-md w-full', className)}>
+          {title && (
+            <div className="flex items-center justify-between p-6 border-b border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+              {showCloseButton && (
+                <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          )}
+          <div className="p-6">{children}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Modal;`;
+  }
+
+  private getReactAlertCode(): string {
+    return `import React, { useState } from 'react';
+import { cn } from '@/utils/cn';
+
+interface AlertProps {
+  variant?: 'info' | 'success' | 'warning' | 'error';
+  title?: string;
+  children: React.ReactNode;
+  dismissible?: boolean;
+  onDismiss?: () => void;
+  showIcon?: boolean;
+  className?: string;
+}
+
+const Alert: React.FC<AlertProps> = ({
+  variant = 'info',
+  title,
+  children,
+  dismissible = false,
+  onDismiss,
+  showIcon = true,
+  className
+}) => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleDismiss = () => {
+    setIsVisible(false);
+    onDismiss?.();
+  };
+
+  if (!isVisible) return null;
+
+  const variants = {
+    info: 'bg-blue-50 border-blue-200 text-blue-900',
+    success: 'bg-green-50 border-green-200 text-green-900',
+    warning: 'bg-yellow-50 border-yellow-200 text-yellow-900',
+    error: 'bg-red-50 border-red-200 text-red-900'
+  };
+
+  return (
+    <div className={cn('rounded-md border p-4', variants[variant], className)}>
+      <div className="flex">
+        {showIcon && (
+          <div className="flex-shrink-0">
+            <div className="w-5 h-5">
+              {/* Icon based on variant */}
+            </div>
+          </div>
+        )}
+        <div className="ml-3">
+          {title && <h3 className="text-sm font-medium mb-1">{title}</h3>}
+          <div className="text-sm">{children}</div>
+        </div>
+        {dismissible && (
+          <div className="ml-auto pl-3">
+            <button onClick={handleDismiss} className="text-gray-400 hover:text-gray-600">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default Alert;`;
+  }
+
+  // Placeholder methods for Vue and Svelte
+  private getVueCardCode(): string {
+    return '<!-- Vue Card implementation -->';
+  }
+
+  private getSvelteCardCode(): string {
+    return '<!-- Svelte Card implementation -->';
+  }
+
+  private getVueModalCode(): string {
+    return '<!-- Vue Modal implementation -->';
+  }
+
+  private getSvelteModalCode(): string {
+    return '<!-- Svelte Modal implementation -->';
+  }
+
+  private getVueAlertCode(): string {
+    return '<!-- Vue Alert implementation -->';
+  }
+
+  private getSvelteAlertCode(): string {
+    return '<!-- Svelte Alert implementation -->';
+  }
+
+  private applyCardColorConstraint(code: string, color: string): string {
+    // Apply color constraints to card
+    return code;
+  }
+
+  private applyModalSizeConstraint(code: string, size: string): string {
+    // Apply size constraints to modal
+    return code;
+  }
+
+  private applyAlertVariantConstraint(code: string, type: string): string {
+    // Apply variant constraints to alert
+    return code;
   }
 }

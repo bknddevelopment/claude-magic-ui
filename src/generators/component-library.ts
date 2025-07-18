@@ -21,6 +21,24 @@ export class ComponentLibrary {
     if (inputConfig) {
       this.components.set('input', inputConfig);
     }
+    
+    // Load card component
+    const cardConfig = this.loadComponentConfig('card');
+    if (cardConfig) {
+      this.components.set('card', cardConfig);
+    }
+    
+    // Load modal component
+    const modalConfig = this.loadComponentConfig('modal');
+    if (modalConfig) {
+      this.components.set('modal', modalConfig);
+    }
+    
+    // Load alert component
+    const alertConfig = this.loadComponentConfig('alert');
+    if (alertConfig) {
+      this.components.set('alert', alertConfig);
+    }
   }
 
   private loadComponentConfig(componentName: string): ComponentDefinition | null {
@@ -170,6 +188,223 @@ export class ComponentLibrary {
           },
           dependencies: ['react', '@types/react'],
           imports: ['useState', 'forwardRef']
+        };
+      }
+      
+      if (componentName === 'card') {
+        return {
+          name: 'Card',
+          category: 'core',
+          description: 'A flexible card component with multiple variants and layout options',
+          keywords: ['card', 'panel', 'container', 'box', 'surface'],
+          frameworks: ['react', 'vue', 'svelte'],
+          styling: ['tailwind', 'css', 'styled-components'],
+          variants: [
+            {
+              name: 'default',
+              description: 'Standard card with border and shadow',
+              features: ['shadow', 'border', 'padding', 'responsive'],
+              complexity: 'simple'
+            },
+            {
+              name: 'elevated',
+              description: 'Card with elevated shadow and hover effects',
+              features: ['shadow', 'hover', 'elevation', 'responsive'],
+              complexity: 'simple'
+            },
+            {
+              name: 'outlined',
+              description: 'Card with prominent border and no shadow',
+              features: ['border', 'padding', 'responsive'],
+              complexity: 'simple'
+            }
+          ],
+          props: {
+            variant: {
+              type: "'default' | 'elevated' | 'outlined'",
+              default: 'default',
+              description: 'Card variant'
+            },
+            padding: {
+              type: "'none' | 'sm' | 'md' | 'lg'",
+              default: 'md',
+              description: 'Internal padding'
+            },
+            children: {
+              type: 'React.ReactNode',
+              required: true,
+              description: 'Card content'
+            },
+            header: {
+              type: 'React.ReactNode',
+              description: 'Card header content'
+            },
+            footer: {
+              type: 'React.ReactNode',
+              description: 'Card footer content'
+            },
+            onClick: {
+              type: '() => void',
+              description: 'Click handler for interactive cards'
+            },
+            className: {
+              type: 'string',
+              description: 'Additional CSS classes'
+            }
+          },
+          dependencies: ['react', '@types/react'],
+          imports: ['forwardRef']
+        };
+      }
+      
+      if (componentName === 'modal') {
+        return {
+          name: 'Modal',
+          category: 'core',
+          description: 'A modal dialog component with overlay and focus management',
+          keywords: ['modal', 'dialog', 'popup', 'overlay', 'lightbox'],
+          frameworks: ['react', 'vue', 'svelte'],
+          styling: ['tailwind', 'css', 'styled-components'],
+          variants: [
+            {
+              name: 'center',
+              description: 'Modal centered on screen with backdrop',
+              features: ['overlay', 'focus-trap', 'esc-key', 'responsive'],
+              complexity: 'medium'
+            },
+            {
+              name: 'fullscreen',
+              description: 'Full screen modal on mobile, centered on desktop',
+              features: ['overlay', 'focus-trap', 'responsive', 'mobile-full'],
+              complexity: 'medium'
+            },
+            {
+              name: 'bottom-sheet',
+              description: 'Bottom sheet modal that slides up from bottom',
+              features: ['overlay', 'slide-up', 'responsive'],
+              complexity: 'medium'
+            }
+          ],
+          props: {
+            isOpen: {
+              type: 'boolean',
+              required: true,
+              description: 'Whether the modal is open'
+            },
+            onClose: {
+              type: '() => void',
+              required: true,
+              description: 'Function to close the modal'
+            },
+            variant: {
+              type: "'center' | 'fullscreen' | 'bottom-sheet'",
+              default: 'center',
+              description: 'Modal variant'
+            },
+            size: {
+              type: "'sm' | 'md' | 'lg' | 'xl'",
+              default: 'md',
+              description: 'Modal size'
+            },
+            title: {
+              type: 'string',
+              description: 'Modal title'
+            },
+            children: {
+              type: 'React.ReactNode',
+              required: true,
+              description: 'Modal content'
+            },
+            showCloseButton: {
+              type: 'boolean',
+              default: true,
+              description: 'Show close button'
+            },
+            closeOnOverlayClick: {
+              type: 'boolean',
+              default: true,
+              description: 'Close modal when clicking overlay'
+            },
+            className: {
+              type: 'string',
+              description: 'Additional CSS classes'
+            }
+          },
+          dependencies: ['react', '@types/react'],
+          imports: ['useEffect', 'useRef']
+        };
+      }
+      
+      if (componentName === 'alert') {
+        return {
+          name: 'Alert',
+          category: 'core',
+          description: 'An alert component for displaying important messages and notifications',
+          keywords: ['alert', 'notification', 'message', 'toast', 'banner', 'warning'],
+          frameworks: ['react', 'vue', 'svelte'],
+          styling: ['tailwind', 'css', 'styled-components'],
+          variants: [
+            {
+              name: 'info',
+              description: 'Informational alert with blue color scheme',
+              features: ['icon', 'dismissible', 'responsive'],
+              complexity: 'simple'
+            },
+            {
+              name: 'success',
+              description: 'Success alert with green color scheme',
+              features: ['icon', 'dismissible', 'responsive'],
+              complexity: 'simple'
+            },
+            {
+              name: 'warning',
+              description: 'Warning alert with yellow color scheme',
+              features: ['icon', 'dismissible', 'responsive'],
+              complexity: 'simple'
+            },
+            {
+              name: 'error',
+              description: 'Error alert with red color scheme',
+              features: ['icon', 'dismissible', 'responsive'],
+              complexity: 'simple'
+            }
+          ],
+          props: {
+            variant: {
+              type: "'info' | 'success' | 'warning' | 'error'",
+              default: 'info',
+              description: 'Alert variant'
+            },
+            title: {
+              type: 'string',
+              description: 'Alert title'
+            },
+            children: {
+              type: 'React.ReactNode',
+              required: true,
+              description: 'Alert content'
+            },
+            dismissible: {
+              type: 'boolean',
+              default: false,
+              description: 'Whether the alert can be dismissed'
+            },
+            onDismiss: {
+              type: '() => void',
+              description: 'Function called when alert is dismissed'
+            },
+            showIcon: {
+              type: 'boolean',
+              default: true,
+              description: 'Show variant icon'
+            },
+            className: {
+              type: 'string',
+              description: 'Additional CSS classes'
+            }
+          },
+          dependencies: ['react', '@types/react'],
+          imports: ['useState']
         };
       }
       

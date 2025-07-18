@@ -1,0 +1,63 @@
+{
+  "name": "Card",
+  "category": "core",
+  "description": "A flexible card component with multiple variants and layout options",
+  "keywords": ["card", "panel", "container", "box", "surface"],
+  "frameworks": ["react", "vue", "svelte"],
+  "styling": ["tailwind", "css", "styled-components"],
+  "variants": [
+    {
+      "name": "default",
+      "description": "Standard card with border and shadow",
+      "features": ["shadow", "border", "padding", "responsive"],
+      "complexity": "simple"
+    },
+    {
+      "name": "elevated",
+      "description": "Card with elevated shadow and hover effects",
+      "features": ["shadow", "hover", "elevation", "responsive"],
+      "complexity": "simple"
+    },
+    {
+      "name": "outlined",
+      "description": "Card with prominent border and no shadow",
+      "features": ["border", "padding", "responsive"],
+      "complexity": "simple"
+    }
+  ],
+  "props": {
+    "variant": {
+      "type": "'default' | 'elevated' | 'outlined'",
+      "default": "default",
+      "description": "Card variant"
+    },
+    "padding": {
+      "type": "'none' | 'sm' | 'md' | 'lg'",
+      "default": "md",
+      "description": "Internal padding"
+    },
+    "children": {
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "Card content"
+    },
+    "header": {
+      "type": "React.ReactNode",
+      "description": "Card header content"
+    },
+    "footer": {
+      "type": "React.ReactNode",
+      "description": "Card footer content"
+    },
+    "onClick": {
+      "type": "() => void",
+      "description": "Click handler for interactive cards"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "dependencies": ["react", "@types/react"],
+  "imports": ["forwardRef"]
+}
