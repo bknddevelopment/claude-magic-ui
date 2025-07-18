@@ -13,6 +13,11 @@ async function demo() {
     'create a blue button',
     'create a red button with loading state',
     'create a large green button',
+    'create a Vue button',
+    'create a Svelte button',
+    'create an input field',
+    'create a Vue input with error state',
+    'create a Svelte input with label',
     'create a pricing table with 3 tiers'
   ];
   

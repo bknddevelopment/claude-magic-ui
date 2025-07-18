@@ -96,26 +96,44 @@ export class ComponentGenerator {
   private generateIntegrationInstructions(variants: ComponentVariant[], request: ComponentRequest): string[] {
     const instructions: string[] = [];
     
-    instructions.push(`1. Install dependencies: npm install ${variants[0].dependencies.join(' ')}`);
+    // Framework-specific dependencies
+    const frameworkDeps = {
+      react: ['react', '@types/react'],
+      vue: ['vue', '@types/vue'],
+      svelte: ['svelte', '@types/svelte']
+    };
+    
+    instructions.push(`1. Install dependencies: npm install ${frameworkDeps[request.framework].join(' ')}`);
     
     if (request.styling === 'tailwind') {
       instructions.push('2. Make sure Tailwind CSS is configured in your project');
-      instructions.push('3. Add the utility function if not already present');
+      if (request.framework === 'react') {
+        instructions.push('3. Add the utility function if not already present');
+      }
     }
     
-    instructions.push('4. Import and use the component in your React application');
-    instructions.push('5. Customize props as needed for your use case');
+    // Framework-specific usage instructions
+    const frameworkUsage = {
+      react: 'Import and use the component in your React application',
+      vue: 'Import and use the component in your Vue application',
+      svelte: 'Import and use the component in your Svelte application'
+    };
+    
+    instructions.push(`${request.styling === 'tailwind' ? '4' : '3'}. ${frameworkUsage[request.framework]}`);
+    instructions.push(`${request.styling === 'tailwind' ? '5' : '4'}. Customize props as needed for your use case`);
     
     return instructions;
   }
 
   // Quick generation method for testing
   async quickGenerate(description: string): Promise<ComponentResponse> {
+    const parsedIntent = this.parser.parse(description);
+    
     return this.generateComponent({
       description,
-      framework: 'react',
-      styling: 'tailwind',
-      features: [],
+      framework: parsedIntent.framework,
+      styling: parsedIntent.styling,
+      features: parsedIntent.features,
       constraints: {}
     });
   }

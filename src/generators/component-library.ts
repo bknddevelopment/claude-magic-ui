@@ -15,11 +15,17 @@ export class ComponentLibrary {
     if (buttonConfig) {
       this.components.set('button', buttonConfig);
     }
+    
+    // Load input component
+    const inputConfig = this.loadComponentConfig('input');
+    if (inputConfig) {
+      this.components.set('input', inputConfig);
+    }
   }
 
   private loadComponentConfig(componentName: string): ComponentDefinition | null {
     try {
-      // For now, hardcode the button config since we only have one
+      // For now, hardcode the configs since we only have a few
       if (componentName === 'button') {
         return {
           name: 'Button',
@@ -87,6 +93,86 @@ export class ComponentLibrary {
           imports: ['useState', 'forwardRef']
         };
       }
+      
+      if (componentName === 'input') {
+        return {
+          name: 'Input',
+          category: 'core',
+          description: 'A flexible input component with multiple variants and validation states',
+          keywords: ['input', 'textbox', 'field', 'form', 'text', 'email', 'password'],
+          frameworks: ['react', 'vue', 'svelte'],
+          styling: ['tailwind', 'css', 'styled-components'],
+          variants: [
+            {
+              name: 'default',
+              description: 'Standard input with border and focus states',
+              features: ['focus', 'disabled', 'error', 'placeholder'],
+              complexity: 'simple'
+            },
+            {
+              name: 'filled',
+              description: 'Input with filled background style',
+              features: ['focus', 'disabled', 'error', 'placeholder'],
+              complexity: 'simple'
+            },
+            {
+              name: 'outlined',
+              description: 'Input with outlined border style',
+              features: ['focus', 'disabled', 'error', 'placeholder'],
+              complexity: 'simple'
+            }
+          ],
+          props: {
+            type: {
+              type: "'text' | 'email' | 'password' | 'number' | 'tel' | 'url'",
+              default: 'text',
+              description: 'Input type'
+            },
+            placeholder: {
+              type: 'string',
+              description: 'Placeholder text'
+            },
+            value: {
+              type: 'string',
+              description: 'Input value'
+            },
+            disabled: {
+              type: 'boolean',
+              default: false,
+              description: 'Disabled state'
+            },
+            error: {
+              type: 'boolean',
+              default: false,
+              description: 'Error state'
+            },
+            helperText: {
+              type: 'string',
+              description: 'Helper or error text'
+            },
+            label: {
+              type: 'string',
+              description: 'Input label'
+            },
+            required: {
+              type: 'boolean',
+              default: false,
+              description: 'Required field indicator'
+            },
+            onChange: {
+              type: '(value: string) => void',
+              description: 'Change handler'
+            },
+            className: {
+              type: 'string',
+              description: 'Additional CSS classes'
+            }
+          },
+          dependencies: ['react', '@types/react'],
+          imports: ['useState', 'forwardRef']
+        };
+      }
+      
       return null;
     } catch (error) {
       console.error(`Failed to load component config for ${componentName}:`, error);
