@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "claude-magic-ui": {
+      "command": "npx",
+      "args": ["claude-magic-ui"],
+      "description": "Natural language UI component generator",
+      "author": "BKND Development",
+      "homepage": "https://github.com/bknddevelopment/claude-magic-ui"
+    }
+  }
+}

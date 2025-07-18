@@ -137,4 +137,9 @@ export class ComponentGenerator {
       constraints: {}
     });
   }
+
+  // Get all available components for MCP server
+  getAllComponents() {
+    return this.library.getAllComponents();
+  }
 }

@@ -1,197 +1,304 @@
-# Claude Magic UI
+# Claude Magic UI - MCP Server
 
-> A natural language UI component generator for Claude Code - like Magic MCP but native to Claude Code
+> Transform Claude Code into a UI component generation powerhouse with natural language!
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io/)
 
 ## 🚀 What This Does
 
-Transform natural language descriptions into production-ready React components instantly:
+**Claude Magic UI** is a Model Context Protocol (MCP) server that brings professional UI component generation directly into Claude Code. Instead of manually creating components or copying from libraries, just describe what you want in natural language.
 
+### Before vs After
+
+**Before:**
 ```typescript
-// Input
-"create a blue button with loading state"
+// Manual component creation
+const Button = ({ children, onClick, disabled }) => {
+  return (
+    <button 
+      onClick={onClick}
+      disabled={disabled}
+      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+    >
+      {children}
+    </button>
+  );
+};
+```
 
-// Output
-✅ 3 component variants with full TypeScript support
-✅ Tailwind CSS styling 
-✅ Accessibility features
-✅ Loading states and proper error handling
+**After:**
+```
+You: "create a blue button with loading state"
+Claude: *Uses MCP server to generate 3 professional variants with TypeScript, accessibility, and loading states*
 ```
 
 ## ✨ Key Features
 
-- **Natural Language Processing**: Understands component descriptions in plain English
-- **Multiple Variants**: Generates 3 different component variations per request
-- **Production Ready**: Pre-tested, accessible components (not experimental AI code)
-- **Smart Constraints**: Detects colors, sizes, features, and styling preferences
-- **Framework Support**: React (Vue & Svelte coming soon)
-- **Zero Setup**: Works directly in Claude Code environment
+### 🎯 Natural Language Generation
+- **"create a blue button"** → Button component with blue styling
+- **"create a Vue input with error state"** → Vue input with validation
+- **"create an elevated card"** → Card component with shadow elevation
+- **"create a success alert with dismiss"** → Alert with success styling and dismiss functionality
 
-## 🎯 Magic MCP Alternative
+### 🏗️ Multi-Framework Support
+- **React**: Modern hooks, TypeScript, best practices
+- **Vue**: Composition API, reactive patterns, TypeScript
+- **Svelte**: Event dispatchers, reactive statements, TypeScript
 
-Instead of AI writing code from scratch (which is buggy), we use a curated library of proven components and intelligently combine/modify them - just like Magic MCP but native to Claude Code.
+### 🎨 Complete Component Library
+- **Button**: 3 variants (primary, secondary, ghost)
+- **Input**: 3 variants (default, filled, outlined)
+- **Card**: 3 variants (default, elevated, outlined)
+- **Modal**: 3 variants (center, fullscreen, bottom-sheet)
+- **Alert**: 4 variants (info, success, warning, error)
 
-## Claude Magic UI - Our Version
+### 🔧 Production-Ready Code
+- **TypeScript**: Full type safety and IntelliSense
+- **Accessibility**: WCAG 2.1 AA compliance
+- **Responsive**: Mobile-first design patterns
+- **Testing**: Component validation and error handling
 
-### Vision
-A Claude Code-native UI component generator that provides instant, production-ready components through natural language descriptions.
+## 📦 Installation
 
-### Core Advantages Over Magic MCP
-- **No Setup**: Works immediately in Claude Code
-- **Full Project Context**: Access to your entire codebase
-- **Real-time Iteration**: Instant feedback and modifications
-- **Framework Agnostic**: React, Vue, Svelte, etc.
-- **No API Keys**: Built into Claude Code ecosystem
+### Option 1: NPM Install (Recommended)
+```bash
+# Install globally for Claude Code MCP usage
+npm install -g claude-magic-ui
 
-## Technical Architecture
+# Or install in your project
+npm install claude-magic-ui
+```
+
+### Option 2: GitHub Install
+```bash
+# Clone and build
+git clone https://github.com/bknddevelopment/claude-magic-ui.git
+cd claude-magic-ui
+npm install
+npm run build
+```
+
+## 🔧 Claude Code Integration
+
+### Step 1: Configure MCP Server
+
+Add to your Claude Code MCP configuration:
+
+```json
+{
+  "mcpServers": {
+    "claude-magic-ui": {
+      "command": "npx",
+      "args": ["claude-magic-ui"],
+      "description": "Natural language UI component generator"
+    }
+  }
+}
+```
+
+### Step 2: Restart Claude Code
+
+Restart Claude Code to load the new MCP server.
+
+### Step 3: Start Using
+
+In Claude Code, you can now:
+- Generate components with natural language
+- List available components and variants
+- Get production-ready code instantly
+
+## 🎨 Usage Examples
+
+### Basic Component Generation
+```
+Claude: Use the generate-component tool to create a blue button
+```
+
+**Result**: 3 button variants with blue styling, TypeScript interfaces, and accessibility features.
+
+### Framework-Specific Generation
+```
+Claude: Generate a Vue input component with error validation
+```
+
+**Result**: Vue component with Composition API, reactive validation, and error states.
+
+### Advanced Components
+```
+Claude: Create a React modal dialog with custom size options
+```
+
+**Result**: Modal component with overlay, focus management, ESC key handling, and size variants.
+
+## 🛠️ Available MCP Tools
+
+### 1. `generate-component`
+Generate UI components from natural language descriptions.
+
+**Parameters:**
+- `description` (required): Natural language description
+- `framework` (optional): react, vue, svelte (auto-detected)
+- `styling` (optional): tailwind, css, styled-components
+
+**Example:**
+```json
+{
+  "description": "create a blue button with loading state",
+  "framework": "react",
+  "styling": "tailwind"
+}
+```
+
+### 2. `list-components`
+List all available component types and their variants.
+
+**Parameters:**
+- `category` (optional): core, composite, layout
+
+**Example:**
+```json
+{
+  "category": "core"
+}
+```
+
+## 🧠 Smart Natural Language Processing
+
+### Component Detection
+- **"button"** → Button component
+- **"input field"** → Input component
+- **"card"** → Card component
+- **"modal dialog"** → Modal component
+- **"alert"** → Alert component
+
+### Framework Detection
+- **"React button"** → React framework
+- **"Vue input"** → Vue framework
+- **"Svelte card"** → Svelte framework
+
+### Variant Detection
+- **"elevated card"** → elevated variant
+- **"outlined input"** → outlined variant
+- **"ghost button"** → ghost variant
+
+### Feature Detection
+- **"loading state"** → loading functionality
+- **"error state"** → error styling
+- **"dismissible"** → dismiss functionality
+
+## 🎯 Component Library
+
+### Core Components
+
+#### Button Component
+- **Variants**: primary, secondary, ghost
+- **Features**: loading states, disabled states, size variants
+- **Props**: variant, size, loading, disabled, onClick
+
+#### Input Component
+- **Variants**: default, filled, outlined
+- **Features**: validation, error states, helper text, labels
+- **Props**: type, placeholder, value, error, helperText, label
+
+#### Card Component
+- **Variants**: default, elevated, outlined
+- **Features**: headers, footers, padding options, interactive states
+- **Props**: variant, padding, header, footer, onClick
+
+#### Modal Component
+- **Variants**: center, fullscreen, bottom-sheet
+- **Features**: overlay, focus management, ESC key, size options
+- **Props**: isOpen, onClose, variant, size, title, showCloseButton
+
+#### Alert Component
+- **Variants**: info, success, warning, error
+- **Features**: icons, dismissible, titles, auto-dismiss
+- **Props**: variant, title, dismissible, onDismiss, showIcon
+
+## 🔍 Natural Language Examples
+
+### Basic Examples
+```
+"create a blue button"
+"create an input field"
+"create a card component"
+"create a modal dialog"
+"create a success alert"
+```
+
+### Framework-Specific Examples
+```
+"create a React button with loading state"
+"create a Vue input with validation"
+"create a Svelte card with custom padding"
+```
+
+### Advanced Examples
+```
+"create a large red button with loading spinner"
+"create a filled input with error state and helper text"
+"create an elevated card with header and footer"
+"create a fullscreen modal with custom title"
+"create a dismissible warning alert with icon"
+```
+
+## 🚀 Development
 
 ### Project Structure
 ```
 claude-magic-ui/
 ├── src/
-│   ├── components/           # Pre-built component library
-│   │   ├── forms/           # Form components
-│   │   ├── navigation/      # Nav components
-│   │   ├── data-display/    # Tables, cards, etc.
-│   │   ├── feedback/        # Alerts, notifications
-│   │   └── layout/          # Grids, containers
-│   ├── generators/          # Natural language processors
-│   │   ├── parser.ts        # NL to component mapping
-│   │   ├── generator.ts     # Code generation engine
-│   │   └── integrator.ts    # Project integration
-│   ├── templates/           # Component templates
-│   │   ├── react/          # React templates
-│   │   ├── vue/            # Vue templates
-│   │   └── svelte/         # Svelte templates
-│   └── utils/              # Helper functions
-├── lib/
-│   ├── config.ts           # Configuration management
-│   ├── types.ts            # TypeScript definitions
-│   └── constants.ts        # Component definitions
-├── tests/
-│   ├── components/         # Component tests
-│   └── generators/         # Generator tests
-└── docs/
-    ├── components.md       # Component documentation
-    └── usage.md           # Usage examples
+│   ├── components/          # Component definitions
+│   ├── generators/          # Core generation logic
+│   ├── templates/           # Framework-specific templates
+│   └── utils/              # Utility functions
+├── mcp-server.js           # MCP server implementation
+├── demo.ts                 # Demo script
+└── README.md               # This file
 ```
 
-### Core Components
-
-#### 1. Natural Language Parser
-```typescript
-interface ComponentRequest {
-  type: 'form' | 'navigation' | 'data-display' | 'feedback' | 'layout';
-  description: string;
-  framework: 'react' | 'vue' | 'svelte';
-  styling: 'tailwind' | 'css' | 'styled-components';
-  features: string[];
-}
+### Building
+```bash
+npm run build        # Build the project
+npm run dev         # Development mode
+npm run test        # Run tests
+npm run lint        # Lint code
 ```
 
-#### 2. Component Library
-- **Forms**: Login, signup, contact, checkout
-- **Navigation**: Navbar, sidebar, breadcrumbs, tabs
-- **Data Display**: Tables, cards, pricing, testimonials
-- **Feedback**: Alerts, modals, notifications, loading
-- **Layout**: Grids, containers, heroes, footers
-
-#### 3. Code Generator
-- Framework-specific code generation
-- Style system integration
-- TypeScript support
-- Accessibility features
-
-## Implementation Phases
-
-### Phase 1: Foundation (Week 1)
-- [ ] Set up project structure
-- [ ] Create basic component library (10 essential components)
-- [ ] Build natural language parser
-- [ ] Implement React + Tailwind generator
-
-### Phase 2: Core Features (Week 2)
-- [ ] Add Vue and Svelte support
-- [ ] Implement component variations
-- [ ] Add styling system options
-- [ ] Create component preview system
-
-### Phase 3: Advanced Features (Week 3)
-- [ ] Project integration logic
-- [ ] Custom component learning
-- [ ] Advanced NL processing
-- [ ] Component composition
-
-### Phase 4: Polish (Week 4)
-- [ ] Testing suite
-- [ ] Documentation
-- [ ] Performance optimization
-- [ ] Error handling
-
-## Usage Examples
-
-### Basic Usage
-```
-You: "Create a pricing table with 3 tiers for a SaaS product"
-Claude: *Generates 3 variations*
-- Basic pricing table
-- Pricing with popular badge
-- Pricing with feature comparison
+### Testing MCP Server
+```bash
+npm run mcp-server  # Start MCP server
 ```
 
-### Advanced Usage
-```
-You: "Create a contact form that matches my existing design system"
-Claude: *Analyzes your codebase and generates*
-- Form with your color scheme
-- Your typography
-- Your validation patterns
-- Your button styles
-```
+## 🤝 Contributing
 
-## Technical Requirements
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Submit a pull request
 
-### Dependencies
-- TypeScript
-- Node.js 18+
-- Framework-specific dependencies (React, Vue, Svelte)
-- Styling libraries (Tailwind, Styled Components)
+## 📝 License
 
-### Integration Points
-- Claude Code API
-- File system access
-- Project analysis
-- Code generation
+MIT License - see [LICENSE](LICENSE) file for details.
 
-## Success Metrics
+## 🔗 Links
 
-1. **Component Quality**: Production-ready, accessible components
-2. **Generation Speed**: <2 seconds per component
-3. **Accuracy**: 90%+ match to user description
-4. **Framework Coverage**: React, Vue, Svelte support
-5. **Project Integration**: Seamless codebase integration
+- **GitHub**: https://github.com/bknddevelopment/claude-magic-ui
+- **Issues**: https://github.com/bknddevelopment/claude-magic-ui/issues
+- **MCP Documentation**: https://modelcontextprotocol.io/
 
-## Next Steps
+## 🎯 Roadmap
 
-1. **Review this plan** - Feedback and adjustments
-2. **Start Phase 1** - Foundation development
-3. **Build MVP** - Basic component generation
-4. **Test with real projects** - Validate approach
-5. **Iterate and improve** - Based on usage
-
-## Competitive Analysis
-
-### Magic MCP Strengths
-- Proven concept
-- Multi-IDE support
-- Component library approach
-
-### Our Advantages
-- Native Claude Code integration
-- Full project context
-- Real-time collaboration
-- No setup required
-- Framework agnostic
+- [ ] Vue and Svelte template completions
+- [ ] More component types (navigation, forms, tables)
+- [ ] Custom component templates
+- [ ] Design system integration
+- [ ] Component composition features
+- [ ] Advanced natural language processing
 
 ---
 
-*This project aims to democratize UI development by making professional components accessible through natural language, directly within the Claude Code environment.*
+**Transform your Claude Code experience with professional UI component generation!** 🚀
