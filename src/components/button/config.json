@@ -1,0 +1,65 @@
+{
+  "name": "Button",
+  "category": "core",
+  "description": "A customizable button component with multiple variants and states",
+  "keywords": ["button", "btn", "click", "action", "submit", "link"],
+  "frameworks": ["react", "vue", "svelte"],
+  "styling": ["tailwind", "css", "styled-components"],
+  "variants": [
+    {
+      "name": "primary",
+      "description": "Primary button with solid background",
+      "features": ["hover", "focus", "disabled"],
+      "complexity": "simple"
+    },
+    {
+      "name": "secondary",
+      "description": "Secondary button with outline style",
+      "features": ["hover", "focus", "disabled"],
+      "complexity": "simple"
+    },
+    {
+      "name": "ghost",
+      "description": "Ghost button with transparent background",
+      "features": ["hover", "focus", "disabled"],
+      "complexity": "simple"
+    }
+  ],
+  "props": {
+    "children": {
+      "type": "React.ReactNode",
+      "required": true,
+      "description": "Button content"
+    },
+    "variant": {
+      "type": "'primary' | 'secondary' | 'ghost'",
+      "default": "primary",
+      "description": "Button variant"
+    },
+    "size": {
+      "type": "'sm' | 'md' | 'lg'",
+      "default": "md",
+      "description": "Button size"
+    },
+    "disabled": {
+      "type": "boolean",
+      "default": false,
+      "description": "Disabled state"
+    },
+    "loading": {
+      "type": "boolean",
+      "default": false,
+      "description": "Loading state"
+    },
+    "onClick": {
+      "type": "() => void",
+      "description": "Click handler"
+    },
+    "className": {
+      "type": "string",
+      "description": "Additional CSS classes"
+    }
+  },
+  "dependencies": ["react", "@types/react"],
+  "imports": ["useState", "forwardRef"]
+}
